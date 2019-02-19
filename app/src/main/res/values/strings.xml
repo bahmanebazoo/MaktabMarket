@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MaktabMarket</string>
+    <string name="products_lists">لیست محصولات</string>
+    <string name="best_sales">پر فروش ترین محصولات</string>
+    <string name="most_viewed">پر بازدید ترین محصولات</string>
+    <string name="best_rated">محبوب ترین محصولات</string>
+    <string name="newest">جدید ترین محصولات</string>
+    <string name="open_drawer">open navigation drawer</string>
+    <string name="close_drawer">close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="newest_product">جدید ترین محصولات</string>
+    <string name="best_quality">محبوب ترین محصولات</string>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/products_list"
+            android:icon="@drawable/products_icon"
+            android:title="@string/products_lists" />
+        <item
+            android:id="@+id/best_sales"
+            android:icon="@drawable/ic_star_face"
+            android:title="@string/best_sales"
+            
+            />
+        <item
+            android:id="@+id/most_viewed"
+            android:icon="@drawable/ic_star_face"
+            android:title="@string/most_viewed" />
+        <item
+            android:id="@+id/best_rated"
+            android:icon="@drawable/ic_star_face"
+            android:title="@string/products_lists" />
+
+
+    </group>
+
+</menu>
