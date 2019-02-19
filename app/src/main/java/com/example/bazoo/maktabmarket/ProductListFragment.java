@@ -2,6 +2,7 @@ package com.example.bazoo.maktabmarket;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +104,7 @@ public class ProductListFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Products>> call, Throwable t) {
                 Toast.makeText(getActivity(), "problem with your request" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("onFailurrequesr", ""+t);
             }
 
         });

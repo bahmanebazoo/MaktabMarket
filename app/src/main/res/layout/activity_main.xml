@@ -5,12 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -21,67 +24,112 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/best_sale_text"
+    </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@string/best_sales"
-            android:padding="8dp"
-            />
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            >
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/best_sale_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/best_sale_product"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/leanear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/best_sale_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/best_sales"
+                    android:padding="8dp"
+                    />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/newest_products_text"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:layout_constraintTop_toTopOf="@id/best_sale_product"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@string/newest_product"
-            android:padding="8dp"
-            />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/best_sale_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newest_products"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/newest_products_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </androidx.recyclerview.widget.RecyclerView>
+              <androidx.appcompat.widget.LinearLayoutCompat
+                  android:id="@+id/leanear2"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  app:layout_constraintTop_toBottomOf="@id/leanear1"
+                  app:layout_constraintLeft_toLeftOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/best_quality_text"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:layout_constraintTop_toTopOf="@id/newest_products"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@string/best_quality"
-            android:padding="8dp"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/best_quality_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/best_quality_product"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp">
+                  <androidx.appcompat.widget.AppCompatTextView
+                      android:id="@+id/newest_products_text"
+                      android:layout_width="match_parent"
+                      android:layout_height="56dp"
+                      android:gravity="center_horizontal"
+                      android:text="@string/newest_product"
+                      android:padding="8dp"
+                      />
 
-        </androidx.recyclerview.widget.RecyclerView>
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/newest_products"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+
+                      android:layout_marginTop="16dp">
+
+                  </androidx.recyclerview.widget.RecyclerView>
+
+              </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/leanear3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/leanear2"
+                    app:layout_constraintLeft_toLeftOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/best_quality_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/best_quality"
+                        android:padding="8dp"
+                        />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/best_quality_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+
+                        android:layout_marginTop="16dp">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    </androidx.core.widget.NestedScrollView>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
