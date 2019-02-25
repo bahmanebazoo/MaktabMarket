@@ -18,11 +18,12 @@ public class Products {
     private int total_sales;
 
     private float average_rating;
+    private int rating_count;
 
 
 
 
-    public Products(List<Images> images, List<Categories> categories, String name, String price, String description, int total_sales, String average_rating) {
+    public Products(List<Images> images, List<Categories> categories, String name, String price, String description, int total_sales, String average_rating,int rating_count) {
         this.images = images;
         this.categories = categories;
         this.name = name;
@@ -30,6 +31,7 @@ public class Products {
         this.description = description;
         this.total_sales = total_sales;
         this.average_rating = Float.parseFloat(average_rating);
+        this.rating_count =rating_count;
 
     }
 
@@ -61,5 +63,7 @@ public class Products {
         return average_rating;
     }
 
-
+    public int getRating_count() {
+        return this.rating_count;
+    }
 }

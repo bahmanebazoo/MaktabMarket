@@ -12,4 +12,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="newest_product">جدید ترین محصولات</string>
     <string name="best_quality">محبوب ترین محصولات</string>
+    <string name="continue_text">ادامه مطلب</string>
+    <string name="new_string">NEW</string>
 </resources>
