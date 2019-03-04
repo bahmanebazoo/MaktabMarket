@@ -35,6 +35,7 @@ public class DetailFragment extends androidx.fragment.app.Fragment {
     private TextView productName;
     private TextView ratingCount;
 
+
     public DetailFragment() {
         // Required empty public constructor
     }
@@ -67,6 +68,7 @@ public class DetailFragment extends androidx.fragment.app.Fragment {
         productName = view.findViewById(R.id.detail_product_name);
         ratingBar = view.findViewById(R.id.ratebar);
         ratingCount=view.findViewById(R.id.detail_new_product);
+
 
         description.setText(getArguments().getString(DESCRIPTION_DETAIL));
         productName.setText(getArguments().getString(PRODUCT_NAME));

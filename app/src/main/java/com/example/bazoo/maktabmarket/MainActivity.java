@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +13,7 @@ import com.example.bazoo.maktabmarket.model.Products;
 import com.example.bazoo.maktabmarket.network.Api;
 import com.example.bazoo.maktabmarket.network.RetrofitClientInstance;
 import com.example.bazoo.maktabmarket.utils.Beginning;
+import com.example.bazoo.maktabmarket.utils.RecyclerEnum;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -27,9 +27,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.TextViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -41,21 +39,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private TextView BestSalesTV;
     private RecyclerView recyclerViewBestSales;
     private ItemAdapter itemAdapterBestSales;
     private List<Products> productListBestSales = new ArrayList<>();
-    private Map<String,String> mapBestSales= new HashMap<>(2);
-    private TextView BestSalesTV;
+    private Map<String, String> mapBestSales = new HashMap<>(2);
+    private TextView BestQualityTV;
     private RecyclerView recyclerViewBestQuality;
     private ItemAdapter itemAdapteBestQuality;
     private List<Products> productListBestQuality = new ArrayList<>();
-    private Map<String,String> mapBestQuality= new HashMap<>(2);
-    private TextView BestQualityTV;
+    private Map<String, String> mapBestQuality = new HashMap<>(2);
+    private TextView NewestTV;
     private RecyclerView recyclerViewNewest;
     private ItemAdapter itemAdapterNewest;
     private List<Products> productListNewest = new ArrayList<>();
-    private Map<String,String> mapNewest= new HashMap<>(2);
-    private TextView NewestTV;
+    private Map<String, String> mapNewest = new HashMap<>(2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,24 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.navigation_drawer);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mapBestSales.put("orderby","total_sales");
-        mapBestSales.put("order","des");
-        mapBestQuality.put("orderby","average_rating");
-        mapBestQuality.put("order","des");
-        mapNewest.put("orderby","date_created");
-        mapNewest.put("order","des");
-
-
-        recyclerViewBestQuality=findViewById(R.id.best_quality_product);
-        recyclerViewBestQuality.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL,false));
-        recyclerViewBestSales= findViewById(R.id.best_sale_product);
-        recyclerViewBestSales.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL,false));
-        recyclerViewNewest=findViewById(R.id.newest_products);
-        recyclerViewNewest.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL,false));
-        NewestTV=findViewById(R.id.newest_products_text);
-        BestSalesTV=findViewById(R.id.best_sale_text);
-        BestQualityTV=findViewById(R.id.best_quality_text);
 
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -91,13 +71,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        {
-            retrofitProductListGetter(mapBestSales,recyclerViewBestSales,itemAdapterBestSales,productListBestSales);
-            retrofitProductListGetter(mapBestQuality,recyclerViewBestQuality,itemAdapteBestQuality,productListBestQuality);
-            retrofitProductListGetter(mapNewest,recyclerViewNewest,itemAdapterNewest,productListNewest);
+
+        recyclerViewBestQuality = findViewById(R.id.best_quality_product);
+        recyclerViewBestQuality.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL,false));
+        recyclerViewBestSales = findViewById(R.id.best_sale_product);
+        recyclerViewBestSales.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL,false));
+        recyclerViewNewest = findViewById(R.id.newest_products);
+        recyclerViewNewest.setLayoutManager(new LinearLayoutManager(getApplicationContext(),RecyclerView.HORIZONTAL,false));
+        NewestTV = findViewById(R.id.newest_products_text);
+        BestSalesTV = findViewById(R.id.best_sale_text);
+        BestQualityTV = findViewById(R.id.best_quality_text);
 
 
-        }
+        retrofitProductListGetter(RecyclerEnum.BEST_SALES + "");
+        retrofitProductListGetter(RecyclerEnum.BEST_QUALITY + "");
+        retrofitProductListGetter(RecyclerEnum.NEWEST + "");
+
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 
@@ -143,7 +139,75 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void updateUI(RecyclerView recyclerView, ItemAdapter itemAdapter, List<Products> productList) {
+
+    private RecyclerView checkRecyclerView(String string) {
+
+        if (string.equals(RecyclerEnum.BEST_QUALITY.toString())) {
+
+            return recyclerViewBestQuality;
+
+        } else if (string.equals(RecyclerEnum.BEST_SALES.toString())) {
+
+            return recyclerViewBestSales;
+        } else {
+
+            return recyclerViewNewest;
+
+        }
+
+    }
+
+    private ItemAdapter checkItemAdapter(String string) {
+
+        if (string.equals(RecyclerEnum.BEST_QUALITY.toString())) {
+            return itemAdapteBestQuality;
+
+        } else if (string.equals(RecyclerEnum.BEST_SALES.toString())) {
+
+            return itemAdapterBestSales;
+        } else {
+
+            return itemAdapterNewest;
+        }
+    }
+
+    private List<Products> checkProductList(String string) {
+
+        if (string.equals(RecyclerEnum.BEST_QUALITY.toString())) {
+
+            return productListBestQuality;
+
+        } else if (string.equals(RecyclerEnum.BEST_SALES.toString())) {
+
+            return productListBestSales;
+        } else {
+
+            return productListNewest;
+
+        }
+    }
+
+    private List<Products> checkProductList(String string, List<Products> productsList) {
+
+        if (string.equals(RecyclerEnum.BEST_QUALITY.toString())) {
+            productListBestQuality = productsList;
+            return productListBestQuality;
+
+        } else if (string.equals(RecyclerEnum.BEST_SALES.toString())) {
+            productListBestSales = productsList;
+            return productListBestSales;
+        } else {
+            productListNewest = productsList;
+            return productListNewest;
+
+        }
+    }
+
+
+    public void updateUI(String string) {
+        ItemAdapter itemAdapter = checkItemAdapter(string);
+        RecyclerView recyclerView = checkRecyclerView(string);
+        List<Products> productList = checkProductList(string);
         if (itemAdapter == null) {
             itemAdapter = new ItemAdapter(productList);
             recyclerView.setAdapter(itemAdapter);
@@ -153,23 +217,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void retrofitProductListGetter(Map<String, String> options,
-                                          final RecyclerView recyclerView, final ItemAdapter itemAdapter,
-                                          final List<Products> productList) {
+    public void retrofitProductListGetter(final String string) {
 
+
+        List<Products> productList = checkProductList(string);
         RetrofitClientInstance.getRetrofitInstance().create(Api.class)
-                .getRootQuery(options).enqueue(new Callback<List<Products>>() {
+                .getRoot().enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
                 if (response.isSuccessful()) {
-                    List<Products> productList = response.body();
-                    Toast.makeText(getApplicationContext(), "" + productList.size(), Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(getApplicationContext(), "succeed", Toast.LENGTH_SHORT).show();
+                    List<Products> productList = checkProductList(string,response.body());
 
+
+                    Toast.makeText(getApplicationContext(), "succeed" + productList.get(0).getName(), Toast.LENGTH_SHORT).show();
+
+                    updateUI(string);
                 }
 
-                updateUI(recyclerView, itemAdapter, productList);
+
             }
 
 
@@ -217,7 +283,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-private List<Products> productList;
+        private List<Products> productList;
+
         public ItemAdapter(List<Products> products) {
             productList = products;
         }
@@ -246,4 +313,5 @@ private List<Products> productList;
             return productList.size();
         }
     }
+
 }

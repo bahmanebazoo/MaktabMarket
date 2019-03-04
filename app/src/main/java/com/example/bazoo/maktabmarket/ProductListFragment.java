@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class ProductListFragment extends Fragment {
 
-    private static final String PARENT_CATEGORY = "parent id of category";
+    private static final String PARENT_CATEGORY = "parent id of products";
 
     private RecyclerView recyclerView;
     private ItemAdapter itemAdapter;
@@ -83,8 +83,11 @@ public class ProductListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
                 if (response.isSuccessful()) {
-                    List<Products> productList = response.body();
-                    Toast.makeText(getActivity(), "" + productList.size(), Toast.LENGTH_SHORT).show();
+                     productList = response.body();
+                    Toast.makeText(getActivity(), "" + productList.size(),
+                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),getArguments().getInt(PARENT_CATEGORY)
+                            +"", Toast.LENGTH_SHORT).show();
 
                     for (int i = (productList.size() - 1); i >= 0; i--) {
                         if (productList.get(i).getCategories().get(0).getParent()
@@ -103,7 +106,8 @@ public class ProductListFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Products>> call, Throwable t) {
-                Toast.makeText(getActivity(), "problem with your request" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "problem with your request" + t.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Log.d("onFailurrequesr", ""+t);
             }
 
