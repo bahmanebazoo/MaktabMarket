@@ -77,41 +77,47 @@ public class ProductListFragment extends Fragment {
     }
 
     public void methoddd() {
+int m=1;
+while (true) {
 
-        RetrofitClientInstance.getRetrofitInstance().create(Api.class)
-                .getRoot().enqueue(new Callback<List<Products>>() {
-            @Override
-            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
-                if (response.isSuccessful()) {
-                     productList = response.body();
-                    Toast.makeText(getActivity(), "" + productList.size(),
-                            Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(),getArguments().getInt(PARENT_CATEGORY)
-                            +"", Toast.LENGTH_SHORT).show();
+    RetrofitClientInstance.getRetrofitInstance().create(Api.class)
+            .getRoot(m).enqueue(new Callback<List<Products>>() {
+        @Override
+        public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+            if (response.isSuccessful()) {
+                productList = response.body();
 
-                    for (int i = (productList.size() - 1); i >= 0; i--) {
-                        if (productList.get(i).getCategories().get(0).getParent()
-                                != getArguments().getInt(PARENT_CATEGORY)) {
-                            productList.remove(i);
+                for (int i = (productList.size() - 1); i >= 0; i--) {
+                    int k = 0;
+                    for (int j = 0; j < productList.get(i).getCategories().size(); j++) {
+                        if (productList.get(i).getCategories().get(0).getId()
+                                == getArguments().getInt(PARENT_CATEGORY)) {
+                            k++;
                         }
                     }
-                    recyclerView.setAdapter(itemAdapter);
-                    Toast.makeText(getActivity(), "succeed", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                    updateUI();
+                    if (k == 0)
+                        productList.remove(i);
                 }
-
-
+                // recyclerView.setAdapter(itemAdapter);
+                Toast.makeText(getActivity(), "succeed", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                updateUI();
             }
 
-            @Override
-            public void onFailure(Call<List<Products>> call, Throwable t) {
-                Toast.makeText(getActivity(), "problem with your request" + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-                Log.d("onFailurrequesr", ""+t);
-            }
 
-        });
+        }
+
+        @Override
+        public void onFailure(Call<List<Products>> call, Throwable t) {
+            Toast.makeText(getActivity(), "problem with your request" + t.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+            Log.d("onFailurrequesr", "" + t);
+
+        }
+
+    });
+
+}
     }
 
 

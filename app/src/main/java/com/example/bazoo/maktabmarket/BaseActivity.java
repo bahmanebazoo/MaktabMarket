@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.bazoo.maktabmarket.model.Categories;
 import com.example.bazoo.maktabmarket.utils.Beginning;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,12 +41,17 @@ public class BaseActivity extends AppCompatActivity {
     private void handlerMethod(String start,int id) {
 
 
-        if (start.equals(Beginning.PRODUCTS.toString())) {
+        if (start.equals(Beginning.CATEGORIES.toString())) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.base_container,
                     CategoriesFragment.newInstance()).commit();
-
-        } else {
+        }
+        else if(start.equals(Beginning.PRODUCTS.toString())){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.base_container,
+                    ProductListFragment.newInstance(id)).commit();
+        }
+        else {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.base_container,

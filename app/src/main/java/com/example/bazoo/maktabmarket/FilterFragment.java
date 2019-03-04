@@ -99,7 +99,7 @@ public class FilterFragment extends Fragment {
 
         } else if (starter.equals(Beginning.BEST_SALES)) {
 
-        } else if (starter.equals(Beginning.MOST_VIEWWD)) {
+        } else if (starter.equals(Beginning.MOST_VIEWED)) {
 
         }
 

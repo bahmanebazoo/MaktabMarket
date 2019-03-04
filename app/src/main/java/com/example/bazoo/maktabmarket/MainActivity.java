@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.products_list:
-                startActivity(BaseActivity.newIntent(this, Beginning.PRODUCTS.toString()));
+                startActivity(BaseActivity.newIntent(this, Beginning.CATEGORIES.toString()));
                 Toast.makeText(this, "bahman", Toast.LENGTH_SHORT).show();
 
                 break;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.most_viewed:
-                startActivity(BaseActivity.newIntent(this, Beginning.MOST_VIEWWD.toString()));
+                startActivity(BaseActivity.newIntent(this, Beginning.MOST_VIEWED.toString()));
                 Toast.makeText(this, "bahman", Toast.LENGTH_SHORT).show();
 
                 break;
